@@ -49,28 +49,32 @@ function mouseWorks() {
         "✅ Sanity check complete."
     ]
 
+    let totalDelay = 0;
     checks.forEach((check, index) => {
+        const randomDelay = Math.floor(Math.random() * (2000 - 1000 + 1)) + 1000;
+        totalDelay += randomDelay;
+
         setTimeout(() => {
-            const li = document.createElement("li")
-            li.textContent = check
-            checklist.appendChild(li)
-        }, index * 1000)
-    })
+            const li = document.createElement("li");
+            li.textContent = check;
+            checklist.appendChild(li);
+        }, totalDelay);
+    });
 
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)]
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
 
-    body.removeEventListener("click", mouseWorks)
-    h1.innerHTML = ""
-    info.innerHTML = randomMessage
+    body.removeEventListener("click", mouseWorks);
+    h1.innerHTML = "";
+    info.innerHTML = randomMessage;
     setTimeout(() => {
-        confetti()
-        h1.innerHTML = "Yey ! Your mouse is working !"
-        info.style.display = "none"
-        checklist.innerHTML = ""
-        restartText.innerHTML = "Not sure ?"
-        restartSection.classList.toggle("hidden")
-        isLoading = false
-    }, checks.length * 1000 + 500)
+        confetti();
+        h1.innerHTML = "Yey ! Your mouse is working !";
+        info.style.display = "none";
+        checklist.innerHTML = "";
+        restartText.innerHTML = "Not sure ?";
+        restartSection.classList.toggle("hidden");
+        isLoading = false;
+    }, totalDelay + 500)
 }
 
 function restart() {
